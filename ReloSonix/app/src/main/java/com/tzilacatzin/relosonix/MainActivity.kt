@@ -6,10 +6,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.tzilacatzin.relosonix.ui.BotonReproducir
@@ -56,20 +58,25 @@ fun UIPrincipal() {
         "madrugada" to R.raw.madrugada
     )
 
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(32.dp),
-        verticalArrangement = Arrangement.SpaceAround,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .background(Color.Black)
+            .padding(32.dp)
     ) {
-        ReloSonixClock()
-        BotonReproducir(
-            listaGenerico = listaGenerico,
-            listaHoras = listaHoras,
-            listaMin = listaMin,
-            listaParteDia = listaParteDia
-        )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.SpaceAround,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            ReloSonixClock()
+            BotonReproducir(
+                listaGenerico = listaGenerico,
+                listaHoras = listaHoras,
+                listaMin = listaMin,
+                listaParteDia = listaParteDia
+            )
+        }
     }
 }
 
