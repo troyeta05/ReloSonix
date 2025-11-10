@@ -7,16 +7,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.tzilacatzin.relosonix.ui.theme.ReloSonixTheme
-import kotlinx.coroutines.delay
+import com.tzilacatzin.relosonix.ui.BotonReproducir
+import com.tzilacatzin.relosonix.ui.ReloSonixClock
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,32 +22,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ReloSonixTheme {
-                UIPrincipal()
-            }
+            UIPrincipal()
         }
     }
 }
 
 @Composable
 fun UIPrincipal() {
-    val context = LocalContext.current
-
     val listaGenerico = listOf(R.raw.audiogenerico)
 
     val listaHoras = listOf(
-        R.raw.la1,
-        R.raw.las2,
-        R.raw.las3,
-        R.raw.las4,
-        R.raw.las5,
-        R.raw.las6,
-        R.raw.las7,
-        R.raw.las8,
-        R.raw.las9,
-        R.raw.las10,
-        R.raw.las11,
-        R.raw.las12
+        R.raw.la1, R.raw.las2, R.raw.las3, R.raw.las4, R.raw.las5, R.raw.las6,
+        R.raw.las7, R.raw.las8, R.raw.las9, R.raw.las10, R.raw.las11, R.raw.las12
     )
 
     val listaMin = listOf(
@@ -81,45 +64,13 @@ fun UIPrincipal() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ReloSonixClock()
-        Button(onClick = {
-            val (hora, minuto) = getHoraYMinuto()
-            val parteDita = getParteDelDia()
-
-            val secuencia = listOf(
-                listaGenerico[0],
-                listaHoras[hora - 1],
-                listaMin[minuto],
-                listaParteDia[parteDita] ?: return@Button
-            )
-
-            reproducirAudiosEnOrden(context, secuencia)
-        }) {
-            Text("▶️ Reproducir Audios")
-        }
+        BotonReproducir(
+            listaGenerico = listaGenerico,
+            listaHoras = listaHoras,
+            listaMin = listaMin,
+            listaParteDia = listaParteDia
+        )
     }
-}
-
-@Composable
-fun ReloSonixClock() {
-    var currentTime by remember { mutableStateOf(getFormattedTime()) }
-
-    LaunchedEffect(Unit) {
-        while (true) {
-            currentTime = getFormattedTime()
-            delay(1000)
-        }
-    }
-
-    Text(
-        text = currentTime,
-        fontSize = 48.sp,
-        style = MaterialTheme.typography.headlineLarge
-    )
-}
-
-fun getFormattedTime(): String {
-    val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
-    return sdf.format(Date())
 }
 
 fun getParteDelDia(): String {
@@ -155,7 +106,5 @@ fun reproducirAudiosEnOrden(context: Context, lista: List<Int>, index: Int = 0) 
 @Preview(showBackground = true)
 @Composable
 fun UIPrincipalPreview() {
-    ReloSonixTheme {
-        UIPrincipal()
-    }
+    UIPrincipal()
 }
