@@ -2,9 +2,12 @@ package com.tzilacatzin.relosonix.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -23,15 +26,17 @@ fun ReloSonixClock() {
             delay(1000)
         }
     }
-
     Box(
         modifier = Modifier
-            .border(width = 2.dp, color = Color.White)
+            .border(width = 4.dp, color = Color.White)
             .padding(16.dp)
+            .fillMaxWidth()
+            .height(120.dp),
+        contentAlignment = Alignment.Center
     ) {
         Text(
             text = currentTime,
-            fontSize = 60.sp,
+            fontSize = 50.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )

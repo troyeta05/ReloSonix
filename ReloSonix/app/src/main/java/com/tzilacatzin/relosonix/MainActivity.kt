@@ -1,5 +1,6 @@
 package com.tzilacatzin.relosonix
 
+import BotonReproducir
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -14,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.tzilacatzin.relosonix.ui.BotonReproducir
 import com.tzilacatzin.relosonix.ui.ReloSonixClock
 import java.text.SimpleDateFormat
 import java.util.*
